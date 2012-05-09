@@ -1,0 +1,48 @@
+{
+  "name": "selection style",
+  "version": "0.1",
+  "description": "Change the style of selected content.",
+  "permissions": [
+    "<all_urls>",
+    "tts",
+    "tabs"
+  ],
+
+  "background": {
+    "scripts": [
+      "tabs.js",
+      "background.js"
+    ]
+  },
+
+  "browser_action": {
+    "default_icon": "icon.gif",
+    "default_title": "selection style"
+  },
+
+  "options_page": "options.html",
+
+  "minimum_chrome_version": "14",
+
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "all_frames": true,
+      "js": [
+        "content_script.js",
+        "command.js"
+      ]
+    }
+  ],
+
+  "icons": {
+    "16": "icon.gif",
+    "48": "icon.gif",
+    "128": "icon.gif",
+    "256": "icon.gif"
+  },
+
+  "manifest_version": 2
+}
