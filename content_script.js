@@ -3,6 +3,8 @@ function changeStyle(node, startOffset, endOffset){
 	if(startOffset==undefined || endOffset==undefined){
 		//处理普通node
 		node.style.textDecoration="underline";
+		node.setAttribute("style",node.getAttribute("style")+"text-shadow:0px 0px 10px blue;");
+		
 	}else{
 		//处理textnode;
 		var parentNode = node.parentNode;
@@ -64,7 +66,7 @@ function onTextSelected(evt){
 		//(2)测试只做alert，或加下滑性
 		var root = document.body;
 		findAndUpdate(root,selection,changeStyle);
-		selection.
+		//selection.
 	}
 };
 
