@@ -1,3 +1,5 @@
+var foundStart; //标记开始与结束
+
 function changeStyle(node, startOffset, endOffset){
 	debugger;
 	if(startOffset==undefined || endOffset==undefined){
@@ -34,12 +36,29 @@ function findAndUpdate(node, selection, changeStyle){
 			//debugger;
 			var startOffset=0;
 			var endOffset=node.data.length;
+			//debugger;
 			if(node==selection.anchorNode){
-				startOffset = selection.anchorOffset;
+				if(!foundStart){
+					startOffset = selection.anchorOffset;
+					foundStart = true;
+				}else{
+					endOffset = selection.anchorOffset;
+				}
 			}
 			if(node==selection.focusNode){
-				endOffset = selection.focusOffset;
+				if(foundStart){
+					endOffset = selection.focusOffset;
+				}else{
+					startOffset = selection.focusOffset;
+					foundStart = true;
+				}
 			}
+			if(startOffset>endOffset){
+				var tmp = startOffset;
+				startOffset = endOffset;
+				endOffset = tmp;
+			}
+			//debugger;
 			changeStyle(node, startOffset, endOffset);
 		}else{
 			changeStyle(node);
@@ -65,7 +84,9 @@ function onTextSelected(evt){
 		//(1)显示一个调整框，selection全局，调整
 		//(2)测试只做alert，或加下滑性
 		var root = document.body;
+		foundStart = false;
 		findAndUpdate(root,selection,changeStyle);
+		selection.removeAllRanges(); 	
 		//selection.
 	}
 };
